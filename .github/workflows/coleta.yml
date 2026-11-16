@@ -1,0 +1,29 @@
+name: coleta-agendada
+# Dias úteis às 19h (BRT) = 22h UTC, depois da publicação da PTAX.
+on:
+  schedule:
+    - cron: "0 22 * * 1-5"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: coleta
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Coleta, análise e relatório
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # opcional: sem ela, o relatório sai sem o resumo por IA
+        run: idash pipeline --ia
+      - name: Versiona dados e relatório
+        run: |
+          git config user.name "coleta-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ reports/
+          git diff --cached --quiet || git commit -m "coleta: $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push

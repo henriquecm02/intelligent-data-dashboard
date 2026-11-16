@@ -1,0 +1,169 @@
+{
+  "analise": {
+    "data_referencia": "2026-11-15",
+    "indicadores": {
+      "dolar": {
+        "nome": "Dólar comercial (venda, PTAX)",
+        "unidade": "R$",
+        "frequencia": "diaria",
+        "ultimo_valor": 5.6518,
+        "ultima_data": "2026-11-13",
+        "dias_desde_ultimo_dado": 2,
+        "var_1d_pct": 0.67,
+        "var_7d_pct": 2.74,
+        "var_30d_pct": 12.05,
+        "var_12m_pct": 7.0,
+        "min_30d": 5.014,
+        "max_30d": 5.6518,
+        "anomalias": [
+          {
+            "data": "2026-10-05",
+            "variacao_pct": -4.55,
+            "z": -8.2,
+            "valor": 4.9859
+          },
+          {
+            "data": "2026-10-26",
+            "variacao_pct": 9.19,
+            "z": 13.1,
+            "valor": 5.5007
+          }
+        ]
+      },
+      "euro": {
+        "nome": "Euro (venda, PTAX)",
+        "unidade": "R$",
+        "frequencia": "diaria",
+        "ultimo_valor": 6.2334,
+        "ultima_data": "2026-11-13",
+        "dias_desde_ultimo_dado": 2,
+        "var_1d_pct": 0.32,
+        "var_7d_pct": 1.66,
+        "var_30d_pct": 11.09,
+        "var_12m_pct": 1.39,
+        "min_30d": 5.6317,
+        "max_30d": 6.2334,
+        "anomalias": [
+          {
+            "data": "2026-10-05",
+            "variacao_pct": -4.96,
+            "z": -10.2,
+            "valor": 5.5897
+          },
+          {
+            "data": "2026-10-26",
+            "variacao_pct": 8.98,
+            "z": 13.0,
+            "valor": 6.1487
+          }
+        ]
+      },
+      "selic": {
+        "nome": "Meta Selic (Copom)",
+        "unidade": "% a.a.",
+        "frequencia": "diaria",
+        "ultimo_valor": 13.75,
+        "ultima_data": "2026-11-15",
+        "mudancas_recentes": [
+          {
+            "data": "2026-06-18",
+            "de": 14.5,
+            "para": 14.25
+          },
+          {
+            "data": "2026-08-06",
+            "de": 14.25,
+            "para": 14.0
+          },
+          {
+            "data": "2026-09-17",
+            "de": 14.0,
+            "para": 13.75
+          }
+        ]
+      },
+      "ipca": {
+        "nome": "IPCA (variação mensal)",
+        "unidade": "%",
+        "frequencia": "mensal",
+        "ultimo_valor": 0.14,
+        "ultima_data": "2026-10-01",
+        "acumulado_12m_pct": 4.63,
+        "acumulado_ano_pct": 4.1,
+        "media_12m": 0.38
+      },
+      "igpm": {
+        "nome": "IGP-M (variação mensal)",
+        "unidade": "%",
+        "frequencia": "mensal",
+        "ultimo_valor": 1.47,
+        "ultima_data": "2026-10-01",
+        "acumulado_12m_pct": 5.25,
+        "acumulado_ano_pct": 4.97,
+        "media_12m": 0.43
+      }
+    },
+    "alertas": [
+      {
+        "indicador": "dolar",
+        "tipo": "variacao",
+        "severidade": "media",
+        "mensagem": "Dólar comercial (venda, PTAX) variou +2,74% em 7 dias (limite 2,0%).",
+        "valor": 2.74
+      },
+      {
+        "indicador": "dolar",
+        "tipo": "anomalia",
+        "severidade": "media",
+        "mensagem": "Dólar comercial (venda, PTAX): variação diária atípica de -4,55% em 2026-10-05 (z = -8,2).",
+        "valor": -4.55
+      },
+      {
+        "indicador": "dolar",
+        "tipo": "anomalia",
+        "severidade": "media",
+        "mensagem": "Dólar comercial (venda, PTAX): variação diária atípica de +9,19% em 2026-10-26 (z = 13,1).",
+        "valor": 9.19
+      },
+      {
+        "indicador": "euro",
+        "tipo": "anomalia",
+        "severidade": "media",
+        "mensagem": "Euro (venda, PTAX): variação diária atípica de -4,96% em 2026-10-05 (z = -10,2).",
+        "valor": -4.96
+      },
+      {
+        "indicador": "euro",
+        "tipo": "anomalia",
+        "severidade": "media",
+        "mensagem": "Euro (venda, PTAX): variação diária atípica de +8,98% em 2026-10-26 (z = 13,0).",
+        "valor": 8.98
+      },
+      {
+        "indicador": "selic",
+        "tipo": "mudanca",
+        "severidade": "alta",
+        "mensagem": "Meta Selic mudou de 14,00% para 13,75% em 2026-09-17.",
+        "valor": 13.75
+      },
+      {
+        "indicador": "ipca",
+        "tipo": "limite",
+        "severidade": "media",
+        "mensagem": "IPCA (variação mensal): acumulado em 12 meses de 4,63% acima de 4,5%.",
+        "valor": 4.63
+      }
+    ]
+  },
+  "saude": {
+    "execucoes": 3,
+    "ultima_execucao": "2026-11-16T00:56:13+00:00",
+    "horas_desde_ultima": 0.0,
+    "duracao_mediana_s": 5.29,
+    "duracao_max_s": 6.48,
+    "intervalo_mediano_h": 0.0,
+    "taxa_sucesso_pct": 100.0,
+    "linhas_novas_ultima": 0
+  },
+  "resumo": null
+}
