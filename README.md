@@ -2,7 +2,7 @@
 
 **Coleta automática de câmbio, juros e inflação direto do Banco Central, alertas quando algo sai do normal, um dashboard para acompanhar e uma camada de IA que resume a semana e responde perguntas em português, sempre com números conferidos contra os dados.**
 
-![Dashboard](docs/img/dashboard.png)
+![Dashboard](docs/img/dashboard.gif)
 
 > Captura do dashboard com dados reais do Banco Central (coletados em 15/11/2026). O resumo por IA aparece vazio porque ainda não foi validado com o LLM (veja [Status](#status-da-validação)).
 
