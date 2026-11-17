@@ -61,9 +61,29 @@ O detector de anomalias marcou duas variações diárias muito grandes no câmbi
 | Componente | Status |
 |---|---|
 | Coleta, validação, análise, alertas, relatório, dashboard | ✅ executados com dados reais |
-| Resumo semanal por IA | ⏳ **pendente**: testado só com LLM roteirizado, falta rodar com o Gemini |
-| Perguntas em linguagem natural | ⏳ **pendente**: testado só com LLM roteirizado, falta rodar com o Gemini |
+| Resumo semanal por IA | ✅ rodado com o **Gemini real** (`gemini-3.6-flash`, 16/11/2026): todos os números do texto conferem com a tabela; veja a ressalva abaixo |
+| Perguntas em linguagem natural | ✅ rodado com o **Gemini real**: 3 de 4 respostas exatas, 1 com janela de datas diferente da minha; veja abaixo |
 | Agendamento no GitHub Actions | ⏳ **pendente**: o workflow está pronto e só roda depois da publicação; aí a frequência e a latência reais aparecem na tabela `coletas` e no dashboard |
+
+## Validação com o Gemini real
+
+Rodado em 16/11/2026 com `gemini-3.6-flash`, contra os dados reais já coletados. A "verdade" de cada pergunta foi calculada direto no SQLite, sem passar pelo modelo.
+
+| Pergunta | Resposta do Gemini | Verdade no banco | Resultado |
+|---|---|---|---|
+| Maior alta diária do dólar nos últimos 30 dias | +9,19% em 26/10, fechando em R$ 5,5007 | +9,19% em 26/10, R$ 5,5007 | ✅ exata |
+| Qual é a meta Selic atual? | 13,75% a.a. (15/11); última mudança em 17/09, de 14,00% para 13,75% | idem | ✅ exata |
+| Quanto o dólar variou no último mês e qual foi o pico? | +11,2% (16/10 a 13/11); pico de R$ 5,6518 em 13/11 | +12,05% (14/10 a 13/11); pico de R$ 5,6518 em 13/11 | ⚠️ pico exato; a variação usa outra janela |
+| Qual será o preço do dólar na semana que vem? | Recusou prever e informou o último dado (13/11, R$ 5,6518) | não há previsão nos dados | ✅ recusa correta |
+
+**Resumo semanal:** os 12 números citados (cotações, variações de 7 e 30 dias, Selic, IPCA e IGP-M acumulados e os dois desvios atípicos) existem na tabela do relatório, e a checagem de números do projeto não marcou nenhum.
+
+**O que o teste revelou:**
+
+- *"Último mês" é ambíguo.* O modelo contou 30 dias a partir da data de referência do relatório (16/11), e não do último dado (13/11), então a janela começou em 16/10 em vez de 14/10. A variação de 11,2% bate com os números que a ferramenta devolveu; a diferença está só na janela. Melhoria planejada: a ferramenta passar a ancorar a janela na última observação disponível.
+- *Fim de semana tratado como atraso.* O resumo diz que o câmbio está "desatualizado há 3 dias", mas 14 e 15/11 foram sábado e domingo e o BCB não divulga PTAX. Melhoria planejada: contar atraso em dias úteis.
+
+Amostra pequena (4 perguntas, 1 resumo, um único modelo): serve para mostrar que o fluxo funciona de ponta a ponta com o Gemini real, não como medida de acurácia.
 
 ## Como rodar
 
@@ -94,7 +114,8 @@ Regras de alerta: `DEFAULT_RULES` em [`analysis.py`](src/idash/analysis.py) (lim
 
 ## Roadmap
 
-- [ ] Validar resumo e perguntas com o Gemini e publicar um benchmark de perguntas com respostas conhecidas
+- [ ] Ampliar o conjunto de perguntas com respostas conhecidas (hoje são 4) e comparar modelos
+- [ ] Ancorar janelas de tempo na última observação e contar atraso em dias úteis
 - [ ] Envio de alertas (e-mail ou Telegram) acionado pelo próprio workflow
 - [ ] Exportação para Google Sheets e Looker Studio
 

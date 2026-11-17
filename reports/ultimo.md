@@ -1,8 +1,20 @@
-# Indicadores econômicos · referência 2026-11-15
+# Indicadores econômicos · referência 2026-11-16
 
 ## Resumo (gerado por IA)
 
-_Não gerado nesta execução (sem GEMINI_API_KEY)._
+A coleta de dados ocorreu há 25,00 horas. Os dados de câmbio são de 2026-11-13 (com 3,00 dias de atraso) e a inflação é de 2026-10-01.
+
+**O que mudou**
+- Dólar subiu para R$ 5,65, com alta de 2,74% em 7 dias e 12,05% em 30 dias.
+- Euro subiu para R$ 6,23, variando 1,66% em 7 dias e 11,09% em 30 dias.
+- IGP-M avançou 1,47% no mês, acumulando 5,25% em 12 meses.
+
+**Atenção**
+O Dólar registrou variação de 2,74% em 7 dias e o IPCA acumulado em 12 meses atingiu 4,63%. Ocorreram variações diárias atípicas recentes no Dólar (9,19%) e no Euro (8,98%). Alerta: os dados de câmbio estão desatualizados há 3,00 dias e os de inflação são do mês anterior.
+
+**O que considerar**
+- Ajuste os preços de venda para cobrir o aumento de 12,05% no Dólar e 11,09% no Euro sobre os custos de importação.
+- Reavalie compras a prazo com a Selic em 13,75% ao ano e prepare o caixa para o reajuste do IGP-M de 1,47%.
 
 ## Câmbio
 
@@ -26,12 +38,11 @@ _Não gerado nesta execução (sem GEMINI_API_KEY)._
 - **media** · Dólar comercial (venda, PTAX): variação diária atípica de +9,19% em 2026-10-26 (z = 13,1).
 - **media** · Euro (venda, PTAX): variação diária atípica de -4,96% em 2026-10-05 (z = -10,2).
 - **media** · Euro (venda, PTAX): variação diária atípica de +8,98% em 2026-10-26 (z = 13,0).
-- **alta** · Meta Selic mudou de 14,00% para 13,75% em 2026-09-17.
 - **media** · IPCA (variação mensal): acumulado em 12 meses de 4,63% acima de 4,5%.
 
 ## Saúde da coleta
 
-- Última execução: 2026-11-16T00:56:13+00:00 (0,0 h atrás)
+- Última execução: 2026-11-16T00:56:13+00:00 (25,0 h atrás)
 - Duração mediana: 5,29 s · taxa de sucesso: 100,0% · 3 execuções registradas
 - Intervalo mediano entre coletas: 0,0 h
 
