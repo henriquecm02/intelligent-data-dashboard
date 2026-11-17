@@ -4,6 +4,9 @@
 
 ![Dashboard](docs/img/dashboard.gif)
 
+> GIF gravado com o dashboard rodando e a **IA ao vivo** (`gemini-3.5-flash-lite`): o resumo da semana é o texto real gerado por `idash relatorio --ia`, e a pergunta é respondida na hora (a maior alta diária do dólar em 30 dias: +9,19% em 26/10, conferida contra o banco). O resumo traz o aviso de "dados de câmbio desatualizados há 3 dias", que é um dos defeitos documentados em [Validação com o Gemini real](#validação-com-o-gemini-real): 14 e 15/11 foram fim de semana, sem cotação.
+
+
 > Captura do dashboard com dados reais do Banco Central (coletados em 15/11/2026). O resumo por IA aparece vazio porque ainda não foi validado com o LLM (veja [Status](#status-da-validação)).
 
 ## O problema
