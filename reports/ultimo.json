@@ -1,20 +1,20 @@
 {
   "analise": {
-    "data_referencia": "2026-11-19",
+    "data_referencia": "2026-11-20",
     "indicadores": {
       "dolar": {
         "nome": "Dólar comercial (venda, PTAX)",
         "unidade": "R$",
         "frequencia": "diaria",
-        "ultimo_valor": 5.8102,
-        "ultima_data": "2026-11-18",
+        "ultimo_valor": 5.8889,
+        "ultima_data": "2026-11-19",
         "dias_desde_ultimo_dado": 1,
-        "var_1d_pct": 0.43,
-        "var_7d_pct": 4.49,
-        "var_30d_pct": 14.91,
-        "var_12m_pct": 8.88,
-        "min_30d": 5.014,
-        "max_30d": 5.8102,
+        "var_1d_pct": 1.35,
+        "var_7d_pct": 4.89,
+        "var_30d_pct": 17.45,
+        "var_12m_pct": 10.39,
+        "min_30d": 5.0277,
+        "max_30d": 5.8889,
         "anomalias": [
           {
             "data": "2026-10-05",
@@ -34,15 +34,15 @@
         "nome": "Euro (venda, PTAX)",
         "unidade": "R$",
         "frequencia": "diaria",
-        "ultimo_valor": 6.372,
-        "ultima_data": "2026-11-18",
+        "ultimo_valor": 6.4672,
+        "ultima_data": "2026-11-19",
         "dias_desde_ultimo_dado": 1,
-        "var_1d_pct": 0.1,
-        "var_7d_pct": 3.26,
-        "var_30d_pct": 12.42,
-        "var_12m_pct": 3.09,
-        "min_30d": 5.6317,
-        "max_30d": 6.372,
+        "var_1d_pct": 1.49,
+        "var_7d_pct": 4.09,
+        "var_30d_pct": 14.84,
+        "var_12m_pct": 4.98,
+        "min_30d": 5.6411,
+        "max_30d": 6.4672,
         "anomalias": [
           {
             "data": "2026-10-05",
@@ -63,7 +63,7 @@
         "unidade": "% a.a.",
         "frequencia": "diaria",
         "ultimo_valor": 13.75,
-        "ultima_data": "2026-11-19",
+        "ultima_data": "2026-11-20",
         "mudancas_recentes": [
           {
             "data": "2026-06-18",
@@ -108,8 +108,8 @@
         "indicador": "dolar",
         "tipo": "variacao",
         "severidade": "alta",
-        "mensagem": "Dólar comercial (venda, PTAX) variou +4,49% em 7 dias (limite 2,0%).",
-        "valor": 4.49
+        "mensagem": "Dólar comercial (venda, PTAX) variou +4,89% em 7 dias (limite 2,0%).",
+        "valor": 4.89
       },
       {
         "indicador": "dolar",
@@ -128,9 +128,9 @@
       {
         "indicador": "euro",
         "tipo": "variacao",
-        "severidade": "media",
-        "mensagem": "Euro (venda, PTAX) variou +3,26% em 7 dias (limite 2,0%).",
-        "valor": 3.26
+        "severidade": "alta",
+        "mensagem": "Euro (venda, PTAX) variou +4,09% em 7 dias (limite 2,0%).",
+        "valor": 4.09
       },
       {
         "indicador": "euro",
@@ -156,12 +156,12 @@
     ]
   },
   "saude": {
-    "execucoes": 5,
-    "ultima_execucao": "2026-11-19T02:57:07+00:00",
+    "execucoes": 6,
+    "ultima_execucao": "2026-11-20T02:52:09+00:00",
     "horas_desde_ultima": 0.0,
-    "duracao_mediana_s": 5.13,
+    "duracao_mediana_s": 4.73,
     "duracao_max_s": 6.48,
-    "intervalo_mediano_h": 11.8,
+    "intervalo_mediano_h": 23.6,
     "taxa_sucesso_pct": 100.0,
     "linhas_novas_ultima": 3
   },
