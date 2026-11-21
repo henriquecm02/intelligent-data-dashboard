@@ -1,4 +1,4 @@
-# Indicadores econômicos · referência 2026-11-20
+# Indicadores econômicos · referência 2026-11-21
 
 ## Resumo (gerado por IA)
 
@@ -15,7 +15,7 @@ _Não gerado nesta execução (sem GEMINI_API_KEY)._
 
 | Indicador | Último | Referência | Acumulado 12 meses | No ano |
 |---|---|---|---|---|
-| Meta Selic (Copom) | 13,75% a.a. | 2026-11-20 | — | — |
+| Meta Selic (Copom) | 13,75% a.a. | 2026-11-21 | — | — |
 | IPCA (variação mensal) | 0,14% | 2026-10 | 4,63% | 4,10% |
 | IGP-M (variação mensal) | 1,47% | 2026-10 | 5,25% | 4,97% |
 
@@ -31,8 +31,8 @@ _Não gerado nesta execução (sem GEMINI_API_KEY)._
 
 ## Saúde da coleta
 
-- Última execução: 2026-11-20T02:52:09+00:00 (0,0 h atrás)
-- Duração mediana: 4,73 s · taxa de sucesso: 100,0% · 6 execuções registradas
-- Intervalo mediano entre coletas: 23,6 h
+- Última execução: 2026-11-21T02:59:33+00:00 (0,0 h atrás)
+- Duração mediana: 4,33 s · taxa de sucesso: 100,0% · 7 execuções registradas
+- Intervalo mediano entre coletas: 23,8 h
 
 _Fonte: Banco Central do Brasil, SGS (api.bcb.gov.br)._
