@@ -10,3 +10,5 @@ jobs:
           python-version: "3.12"
       - run: pip install -e ".[dev]"
       - run: pytest -q
+      - name: Perguntas com gabarito recalculado do SQLite (sem chave)
+        run: python eval/run_eval.py

@@ -20,6 +20,11 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # opcional: sem ela, o relatório sai sem o resumo por IA
         run: idash pipeline --ia
+      - name: Alertas no Telegram (opcional)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: idash notificar
       - name: Versiona dados e relatório
         run: |
           git config user.name "coleta-bot"

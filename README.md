@@ -7,8 +7,6 @@
 > GIF gravado com o dashboard rodando e a **IA ao vivo** (`gemini-3.5-flash-lite`): o resumo da semana é o texto real gerado por `idash relatorio --ia`, e a pergunta é respondida na hora (a maior alta diária do dólar em 30 dias: +9,19% em 26/10, conferida contra o banco). O resumo traz o aviso de "dados de câmbio desatualizados há 3 dias", que é um dos defeitos documentados em [Validação com o Gemini real](#validação-com-o-gemini-real): 14 e 15/11 foram fim de semana, sem cotação.
 
 
-> Captura do dashboard com dados reais do Banco Central (coletados em 15/11/2026). O resumo por IA aparece vazio porque ainda não foi validado com o LLM (veja [Status](#status-da-validação)).
-
 ## O problema
 
 Quem tem uma pequena empresa que compra insumos importados ou reajusta preços pela inflação precisa acompanhar dólar, Selic e IPCA. Na prática, isso vira abrir o site do Banco Central de vez em quando, copiar números para uma planilha e **perceber tarde** que o câmbio disparou na semana.
@@ -55,7 +53,7 @@ Execuções reais em 15/11/2026, nesta máquina:
 | Carga inicial (5 séries desde 01/2023) | 3.449 observações em ~15 s |
 | Coleta incremental seguinte | 0 linhas novas, ~5 s (5 requisições) |
 | Alertas gerados na data | 7: dólar +2,74% em 7 dias, 4 variações diárias atípicas no câmbio, mudança da meta Selic (14,00% → 13,75%), IPCA 12 meses em 4,63% (acima de 4,5%) |
-| Testes offline | 10 (API simulada, falhas parciais, revisões de dados, anomalias, checagem de números, perguntas com ferramentas) |
+| Testes offline | 13 (API simulada, falhas parciais, revisões de dados, anomalias, checagem de números, perguntas com ferramentas, dias úteis, notificações) |
 
 O detector de anomalias marcou duas variações diárias muito grandes no câmbio (−4,55% em 05/10 e +9,19% em 26/10/2026), com z-score acima de 8. Os valores são os retornados pela API. O dashboard destaca esses pontos para que alguém confira se é movimento real ou correção na fonte, que é exatamente o tipo de coisa que passaria despercebida numa planilha.
 
@@ -66,7 +64,9 @@ O detector de anomalias marcou duas variações diárias muito grandes no câmbi
 | Coleta, validação, análise, alertas, relatório, dashboard | ✅ executados com dados reais |
 | Resumo semanal por IA | ✅ rodado com o **Gemini real** (`gemini-3.6-flash`, 16/11/2026): todos os números do texto conferem com a tabela; veja a ressalva abaixo |
 | Perguntas em linguagem natural | ✅ rodado com o **Gemini real**: 3 de 4 respostas exatas, 1 com janela de datas diferente da minha; veja abaixo |
-| Agendamento no GitHub Actions | ⏳ **pendente**: o workflow está pronto e só roda depois da publicação; aí a frequência e a latência reais aparecem na tabela `coletas` e no dashboard |
+| Agendamento no GitHub Actions | ✅ rodando: 4 de 4 dias úteis entre 18 e 21/11/2026, 100% de sucesso, 4 a 6 s por execução (tabela `coletas`); veja abaixo |
+| Perguntas com gabarito recalculado do SQLite | ✅ 23 de 23 respostas das ferramentas conferem; roda no CI a cada push |
+| Resumo por IA na coleta agendada | ⏳ falta cadastrar o secret `GEMINI_API_KEY` no repositório: sem ele, o robô gera o relatório sem o resumo |
 
 ## Validação com o Gemini real
 
@@ -87,6 +87,27 @@ Rodado em 16/11/2026 com `gemini-3.6-flash`, contra os dados reais já coletados
 - *Fim de semana tratado como atraso.* O resumo diz que o câmbio está "desatualizado há 3 dias", mas 14 e 15/11 foram sábado e domingo e o BCB não divulga PTAX. Melhoria planejada: contar atraso em dias úteis.
 
 Amostra pequena (4 perguntas, 1 resumo, um único modelo): serve para mostrar que o fluxo funciona de ponta a ponta com o Gemini real, não como medida de acurácia.
+
+## O agendamento em produção
+
+Medido na tabela `coletas`, que registra cada execução:
+
+| Métrica | Valor |
+|---|---|
+| Execuções agendadas | 4 de 4 dias úteis (18, 19, 20 e 21/11/2026) |
+| Taxa de sucesso | 100% |
+| Duração | 4 a 6 s (mediana de 4,3 s) |
+| Intervalo entre coletas | mediana de 23,8 h |
+| Horário real | entre 02h52 e 03h21 UTC, embora o cron peça 22h UTC |
+
+O agendador do GitHub atrasou as execuções em cerca de 5 horas. Para este uso não faz diferença, porque a PTAX do dia já está publicada, mas um relatório que precisasse sair num horário certo exigiria outro agendador.
+
+## Versão 2: mais perguntas, atraso em dias úteis e alertas no Telegram
+
+- **23 perguntas com gabarito recalculado do SQLite** (`python eval/run_eval.py`). Elas cobrem último valor, variação, máxima e data da mínima em períodos fechados, inflação acumulada no ano e em 12 meses, e Selic média. O banco muda a cada coleta, então o gabarito não é fixo: o script recalcula a resposta certa com SQL e pandas, sem passar pelas funções do pacote, e compara com o que a ferramenta do agente devolve. Hoje as 23 conferem. Com `--gemini`, o script também faz as perguntas ao modelo e confere se o número certo aparece na resposta, mas isso ainda não foi rodado.
+- **Atraso em dias úteis.** O alerta de dado desatualizado conta dias úteis (mais de 2 dias úteis sem dado novo), e não mais dias corridos. Fim de semana deixa de parecer atraso, que era o defeito visto no resumo do Gemini.
+- **Janela ancorada no último dado.** A pergunta enviada ao modelo agora traz a data do último dado de cada indicador, e o prompt manda contar "último mês" a partir dela. Isso ataca a divergência de janela vista na validação. O efeito com o Gemini real ainda não foi medido.
+- **Alertas no Telegram.** `idash notificar` envia os alertas novos de severidade alta, sem repetir os já enviados, e o workflow de coleta chama o comando depois de cada execução. Só funciona com os secrets `TELEGRAM_BOT_TOKEN` e `TELEGRAM_CHAT_ID`; sem eles, nada é enviado. Foi testado com o envio simulado, não com um bot real.
 
 ## Como rodar
 
@@ -113,13 +134,15 @@ Regras de alerta: `DEFAULT_RULES` em [`analysis.py`](src/idash/analysis.py) (lim
 
 - Cinco séries fixas. Adicionar outras é uma linha em `SERIES`, mas as regras de alerta precisam ser pensadas por indicador.
 - O z-score usa a janela dos 90 dias anteriores; após um choque grande, a sensibilidade cai por algumas semanas.
-- Os alertas não são enviados para nenhum canal ainda; ficam no relatório e no dashboard.
+- Os alertas só vão para o Telegram se os secrets estiverem configurados. O envio real ainda não foi testado com um bot.
+- Feriados nacionais contam como dia útil no cálculo de atraso, então um feriado isolado pode gerar um aviso de 1 dia útil sem dado.
 
 ## Roadmap
 
-- [ ] Ampliar o conjunto de perguntas com respostas conhecidas (hoje são 4) e comparar modelos
-- [ ] Ancorar janelas de tempo na última observação e contar atraso em dias úteis
-- [ ] Envio de alertas (e-mail ou Telegram) acionado pelo próprio workflow
+- [x] Ampliar o conjunto de perguntas com respostas conhecidas (23, com gabarito recalculado do SQLite)
+- [x] Ancorar janelas de tempo na última observação e contar atraso em dias úteis
+- [x] Envio de alertas pelo Telegram acionado pelo próprio workflow
+- [ ] Rodar as 23 perguntas com o Gemini real e comparar modelos
 - [ ] Exportação para Google Sheets e Looker Studio
 
 ---

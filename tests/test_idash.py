@@ -138,3 +138,39 @@ def test_qa_rejects_unknown_indicator(db):
 def test_near_miss_is_not_accepted(db):
     a = {"taxa": 100.0, "x": 5.6518}
     assert ungrounded_numbers("Sucesso de 99,99% e dólar a R$ 5,65.", a) == ["99,99%"]
+
+
+# ------------------------------------------------------------------ dias úteis e notificações
+def test_atraso_em_dias_uteis_ignora_fim_de_semana():
+    import pandas as pd
+
+    from idash.analysis import business_days_between
+
+    T = pd.Timestamp
+    assert business_days_between(T("2026-11-20"), T("2026-11-22")) == 0  # sexta -> domingo
+    assert business_days_between(T("2026-11-20"), T("2026-11-23")) == 1  # sexta -> segunda
+    assert business_days_between(T("2026-11-13"), T("2026-11-20")) == 5
+
+
+def test_notifica_so_alertas_novos_de_severidade_alta(tmp_path, monkeypatch):
+    from idash import notify
+
+    enviados = []
+    monkeypatch.setattr(notify, "enviar_telegram", lambda msg, token, chat: enviados.append(msg))
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "x")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "1")
+    alertas = [{"indicador": "dolar", "tipo": "variacao", "severidade": "alta", "mensagem": "Dólar +5%"},
+               {"indicador": "ipca", "tipo": "limite", "severidade": "media", "mensagem": "IPCA acima"}]
+    hist = tmp_path / "enviados.json"
+    assert notify.notificar(alertas, "2026-11-21", hist)["enviados"] == 1
+    assert "Dólar +5%" in enviados[0] and "IPCA" not in enviados[0]
+    assert notify.notificar(alertas, "2026-11-22", hist)["enviados"] == 0  # já enviado
+
+
+def test_sem_token_nao_envia(tmp_path, monkeypatch):
+    from idash import notify
+
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    alertas = [{"indicador": "dolar", "tipo": "variacao", "severidade": "alta", "mensagem": "Dólar +5%"}]
+    r = notify.notificar(alertas, "2026-11-21", tmp_path / "e.json")
+    assert r["enviados"] == 0 and r["pendentes"] == 1

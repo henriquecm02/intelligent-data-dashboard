@@ -127,7 +127,13 @@ QA_TOOLS = {
 def ask(llm: LLM, db: Path, analysis: dict, question: str, max_steps: int = 6) -> dict:
     """Responde a pergunta usando só as ferramentas; registra cada chamada para auditoria."""
     specs = [spec for spec, _ in QA_TOOLS.values()]
-    msgs = [Message(role="user", text=f"Hoje é {analysis['data_referencia']}. Pergunta: {question}")]
+    ultimos = ", ".join(f"{slug}: {info['ultima_data']}" for slug, info in analysis["indicadores"].items()
+                        if "ultima_data" in info)
+    msgs = [Message(role="user", text=(
+        f"Hoje é {analysis['data_referencia']}. Último dado disponível de cada indicador: {ultimos}. "
+        "Para períodos relativos (\"último mês\", \"última semana\"), conte a partir do último dado do indicador, "
+        "não de hoje, e diga as datas usadas. "
+        f"Pergunta: {question}"))]
     calls, usage, evidence = [], Usage(), {}
     for _ in range(max_steps):
         resp = llm.chat(prompt("qa_v1"), msgs, specs)

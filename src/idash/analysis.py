@@ -9,6 +9,7 @@ import sqlite3
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from .collector import BY_SLUG, SERIES
@@ -46,10 +47,18 @@ def _value_on_or_before(s: pd.Series, when: pd.Timestamp) -> float | None:
     return float(s.iloc[-1]) if len(s) else None
 
 
+def business_days_between(start: pd.Timestamp, end: pd.Timestamp) -> int:
+    """Dias úteis (seg-sex) depois de `start` até `end`, inclusive. Fim de semana não conta como atraso."""
+    if end <= start:
+        return 0
+    return int(np.busday_count((start + pd.Timedelta(days=1)).date(), (end + pd.Timedelta(days=1)).date()))
+
+
 def daily_metrics(s: pd.Series, ref: pd.Timestamp) -> dict:
     last_d, last_v = s.index[-1], float(s.iloc[-1])
     out = {"ultimo_valor": round(last_v, 4), "ultima_data": last_d.date().isoformat(),
-           "dias_desde_ultimo_dado": int((ref - last_d).days)}
+           "dias_desde_ultimo_dado": int((ref - last_d).days),
+           "dias_uteis_desde_ultimo_dado": business_days_between(last_d, ref)}
     for label, days in [("var_1d_pct", 1), ("var_7d_pct", 7), ("var_30d_pct", 30), ("var_12m_pct", 365)]:
         base = _value_on_or_before(s, last_d - pd.Timedelta(days=days)) if days > 1 else \
             (float(s.iloc[-2]) if len(s) > 1 else None)
@@ -136,10 +145,12 @@ def evaluate_rules(slug: str, info: dict, s: pd.Series, rule: dict, ref: pd.Time
             alerts.append({"indicador": slug, "tipo": "limite", "severidade": "media",
                            "mensagem": f"{name}: acumulado em 12 meses de {br(v)}% acima de "
                            f"{br(rule['acumulado_12m_max'], 1)}%.", "valor": v})
-    stale = info.get("dias_desde_ultimo_dado")
-    if stale is not None and stale > 5:
+    # Séries diárias: atraso medido em dias úteis (a PTAX não sai no fim de semana). Mais de 2 dias úteis sem
+    # dado novo indica falha de coleta ou da fonte; feriado nacional isolado ainda pode gerar um aviso.
+    stale = info.get("dias_uteis_desde_ultimo_dado")
+    if stale is not None and stale > 2:
         alerts.append({"indicador": slug, "tipo": "dado_desatualizado", "severidade": "media",
-                       "mensagem": f"{name}: último dado tem {stale} dias.", "valor": stale})
+                       "mensagem": f"{name}: último dado tem {stale} dias úteis.", "valor": stale})
     return alerts
 
 
@@ -168,7 +179,7 @@ def collection_health(db: Path, last_n: int = 200) -> dict:
     }
 
 
-def numbers_in(obj, skip=frozenset({"z", "dias_desde_ultimo_dado", "execucoes"})) -> set[float]:
+def numbers_in(obj, skip=frozenset({"z", "dias_desde_ultimo_dado", "dias_uteis_desde_ultimo_dado", "execucoes"})) -> set[float]:
     found: set[float] = set()
     if isinstance(obj, dict):
         for k, v in obj.items():

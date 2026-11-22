@@ -1,0 +1,315 @@
+{
+  "referencia": "2026-11-22",
+  "acertos_ferramentas": "23",
+  "total": 23,
+  "casos": [
+    {
+      "pergunta": "Qual o último valor do dólar?",
+      "ferramenta": "get_indicator",
+      "args": {
+        "indicador": "dolar"
+      },
+      "campo": "ultimo_valor",
+      "esperado": 5.8889,
+      "casas": 4,
+      "obtido": 5.8889,
+      "ok": true
+    },
+    {
+      "pergunta": "Qual o último valor do euro?",
+      "ferramenta": "get_indicator",
+      "args": {
+        "indicador": "euro"
+      },
+      "campo": "ultimo_valor",
+      "esperado": 6.4672,
+      "casas": 4,
+      "obtido": 6.4672,
+      "ok": true
+    },
+    {
+      "pergunta": "Qual o último valor da Selic?",
+      "ferramenta": "get_indicator",
+      "args": {
+        "indicador": "selic"
+      },
+      "campo": "ultimo_valor",
+      "esperado": 13.75,
+      "casas": 2,
+      "obtido": 13.75,
+      "ok": true
+    },
+    {
+      "pergunta": "Qual o último valor do IPCA?",
+      "ferramenta": "get_indicator",
+      "args": {
+        "indicador": "ipca"
+      },
+      "campo": "ultimo_valor",
+      "esperado": 0.14,
+      "casas": 2,
+      "obtido": 0.14,
+      "ok": true
+    },
+    {
+      "pergunta": "Qual o último valor do IGP-M?",
+      "ferramenta": "get_indicator",
+      "args": {
+        "indicador": "igpm"
+      },
+      "campo": "ultimo_valor",
+      "esperado": 1.47,
+      "casas": 2,
+      "obtido": 1.47,
+      "ok": true
+    },
+    {
+      "pergunta": "Quanto o dólar variou em outubro de 2026?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "dolar",
+        "inicio": "2026-10-01",
+        "fim": "2026-10-31"
+      },
+      "campo": "variacao_pct",
+      "esperado": 4.1,
+      "casas": 2,
+      "obtido": 4.1,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Qual foi a máxima do dólar em outubro de 2026?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "dolar",
+        "inicio": "2026-10-01",
+        "fim": "2026-10-31"
+      },
+      "campo": "maximo",
+      "esperado": 5.5007,
+      "casas": 4,
+      "obtido": 5.5007,
+      "ok": true
+    },
+    {
+      "pergunta": "Em que dia o dólar teve a mínima em outubro de 2026?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "dolar",
+        "inicio": "2026-10-01",
+        "fim": "2026-10-31"
+      },
+      "campo": "data_minimo",
+      "esperado": "2026-10-06",
+      "casas": null,
+      "obtido": "2026-10-06",
+      "ok": true
+    },
+    {
+      "pergunta": "Quanto o euro variou em setembro de 2026?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "euro",
+        "inicio": "2026-09-01",
+        "fim": "2026-09-30"
+      },
+      "campo": "variacao_pct",
+      "esperado": -1.69,
+      "casas": 2,
+      "obtido": -1.69,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Qual foi a máxima do euro em setembro de 2026?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "euro",
+        "inicio": "2026-09-01",
+        "fim": "2026-09-30"
+      },
+      "campo": "maximo",
+      "esperado": 5.9785,
+      "casas": 4,
+      "obtido": 5.9785,
+      "ok": true
+    },
+    {
+      "pergunta": "Em que dia o euro teve a mínima em setembro de 2026?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "euro",
+        "inicio": "2026-09-01",
+        "fim": "2026-09-30"
+      },
+      "campo": "data_minimo",
+      "esperado": "2026-09-22",
+      "casas": null,
+      "obtido": "2026-09-22",
+      "ok": true
+    },
+    {
+      "pergunta": "Quanto o dólar variou em 2025?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "dolar",
+        "inicio": "2025-01-01",
+        "fim": "2025-12-31"
+      },
+      "campo": "variacao_pct",
+      "esperado": -11.37,
+      "casas": 2,
+      "obtido": -11.37,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Qual foi a máxima do dólar em 2025?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "dolar",
+        "inicio": "2025-01-01",
+        "fim": "2025-12-31"
+      },
+      "campo": "maximo",
+      "esperado": 6.2086,
+      "casas": 4,
+      "obtido": 6.2086,
+      "ok": true
+    },
+    {
+      "pergunta": "Em que dia o dólar teve a mínima em 2025?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "dolar",
+        "inicio": "2025-01-01",
+        "fim": "2025-12-31"
+      },
+      "campo": "data_minimo",
+      "esperado": "2025-11-11",
+      "casas": null,
+      "obtido": "2025-11-11",
+      "ok": true
+    },
+    {
+      "pergunta": "Quanto o euro variou em 2024?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "euro",
+        "inicio": "2024-01-01",
+        "fim": "2024-12-31"
+      },
+      "campo": "variacao_pct",
+      "esperado": 20.21,
+      "casas": 2,
+      "obtido": 20.21,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Qual foi a máxima do euro em 2024?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "euro",
+        "inicio": "2024-01-01",
+        "fim": "2024-12-31"
+      },
+      "campo": "maximo",
+      "esperado": 6.4769,
+      "casas": 4,
+      "obtido": 6.4769,
+      "ok": true
+    },
+    {
+      "pergunta": "Em que dia o euro teve a mínima em 2024?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "euro",
+        "inicio": "2024-01-01",
+        "fim": "2024-12-31"
+      },
+      "campo": "data_minimo",
+      "esperado": "2024-01-29",
+      "casas": null,
+      "obtido": "2024-01-29",
+      "ok": true
+    },
+    {
+      "pergunta": "Qual o IPCA acumulado em 2025?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "ipca",
+        "inicio": "2025-01-01",
+        "fim": "2025-12-31"
+      },
+      "campo": "acumulado_pct",
+      "esperado": 4.26,
+      "casas": 2,
+      "obtido": 4.26,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Qual o IGP-M acumulado em 2025?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "igpm",
+        "inicio": "2025-01-01",
+        "fim": "2025-12-31"
+      },
+      "campo": "acumulado_pct",
+      "esperado": -1.04,
+      "casas": 2,
+      "obtido": -1.04,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Qual o IPCA acumulado em 2024?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "ipca",
+        "inicio": "2024-01-01",
+        "fim": "2024-12-31"
+      },
+      "campo": "acumulado_pct",
+      "esperado": 4.83,
+      "casas": 2,
+      "obtido": 4.83,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Quanto o IPCA acumula nos últimos 12 meses?",
+      "ferramenta": "get_indicator",
+      "args": {
+        "indicador": "ipca"
+      },
+      "campo": "acumulado_12m_pct",
+      "esperado": 4.63,
+      "casas": 2,
+      "obtido": 4.63,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Quanto o IGP-M acumula nos últimos 12 meses?",
+      "ferramenta": "get_indicator",
+      "args": {
+        "indicador": "igpm"
+      },
+      "campo": "acumulado_12m_pct",
+      "esperado": 5.25,
+      "casas": 2,
+      "obtido": 5.25,
+      "ok": "True"
+    },
+    {
+      "pergunta": "Qual a Selic média em 2026 até agora?",
+      "ferramenta": "period_stats",
+      "args": {
+        "indicador": "selic",
+        "inicio": "2026-01-01",
+        "fim": "2026-12-31"
+      },
+      "campo": "media",
+      "esperado": 14.4,
+      "casas": 2,
+      "obtido": 14.3962,
+      "ok": true
+    }
+  ]
+}

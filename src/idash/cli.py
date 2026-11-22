@@ -4,6 +4,7 @@
   idash relatorio [--ia]        análise + relatório Markdown (resumo por IA opcional)
   idash pipeline [--ia]         coletar + relatorio (usado pelo agendamento)
   idash perguntar "Quanto o dólar subiu no último mês?"
+  idash notificar               envia alertas novos de severidade alta ao Telegram (se configurado)
 """
 from __future__ import annotations
 
@@ -71,6 +72,15 @@ def cmd_perguntar(args) -> int:
     return 0
 
 
+def cmd_notificar(args) -> int:
+    from .notify import notificar
+
+    analysis = an.analyze(args.db, reference=args.data)
+    res = notificar(analysis["alertas"], analysis["data_referencia"], args.db.parent / "alertas_enviados.json")
+    print(json.dumps(res, ensure_ascii=False))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="idash", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--db", type=Path, default=DB)
@@ -83,6 +93,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--ia", action="store_true")
     q = sub.add_parser("perguntar")
     q.add_argument("pergunta")
+    sub.add_parser("notificar")
     args = ap.parse_args(argv)
     if args.cmd == "coletar":
         return cmd_coletar(args)
@@ -91,6 +102,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "pipeline":
         code = cmd_coletar(args)
         return cmd_relatorio(args) or code
+    if args.cmd == "notificar":
+        return cmd_notificar(args)
     return cmd_perguntar(args)
 
 
