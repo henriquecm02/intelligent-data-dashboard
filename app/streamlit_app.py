@@ -11,6 +11,7 @@ from pathlib import Path
 import altair as alt
 import pandas as pd
 import streamlit as st
+import tema
 
 from idash import analysis as an
 from idash.analysis import br
@@ -20,7 +21,7 @@ from idash.collector import BY_SLUG
 ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / "data" / "indicadores.db"
 REPORT = ROOT / "reports" / "ultimo.json"
-SEV = {"alta": "🔴", "media": "🟠", "baixa": "🟡"}
+SEV = {"alta": ("critico", "Alta"), "media": ("atencao", "Média"), "baixa": ("atencao", "Baixa")}
 
 st.set_page_config(page_title="Indicadores econômicos", page_icon="📈", layout="wide")
 
@@ -37,11 +38,14 @@ if not DB.exists():
 df, analysis, health = data(DB.stat().st_mtime)
 ind = analysis["indicadores"]
 
-st.title("📈 Indicadores econômicos para pequenas empresas")
 fresh = f"{br(health['horas_desde_ultima'], 1)} h" if health.get("execucoes") else "—"
-st.caption(f"Fonte: Banco Central do Brasil (SGS) · última coleta há {fresh} · "
-           f"duração mediana {br(health.get('duracao_mediana_s') or 0)} s · "
-           f"sucesso {br(health.get('taxa_sucesso_pct') or 0, 1)}% em {health.get('execucoes', 0)} execuções")
+tema.aplicar_tema(
+    "Indicadores econômicos para pequenas empresas",
+    "Câmbio, juros e inflação coletados do Banco Central, com alertas quando algo sai do normal e um resumo semanal "
+    "por IA em que todo número é conferido contra os dados.",
+    kicker="Dados públicos · Banco Central (SGS)",
+    chips=[f"Última coleta há {fresh}", f"Duração mediana {br(health.get('duracao_mediana_s') or 0)} s",
+           f"Sucesso {br(health.get('taxa_sucesso_pct') or 0, 1)}% em {health.get('execucoes', 0)} execuções"])
 
 cols = st.columns(5)
 cards = [
@@ -67,25 +71,32 @@ with left:
         days = {"30 dias": 30, "6 meses": 182, "1 ano": 365}[periodo]
         s = s[s["data"] >= s["data"].max() - timedelta(days=days)]
     base = alt.Chart(s).encode(x=alt.X("data:T", title=None, axis=alt.Axis(format="%d/%m/%y")))
-    line = base.mark_line(color="#2563eb").encode(
-        y=alt.Y("valor:Q", title=BY_SLUG[slug].unit, scale=alt.Scale(zero=False)),
-        tooltip=[alt.Tooltip("data:T", format="%d/%m/%Y"), alt.Tooltip("valor:Q", format=".4f")])
-    layers = [line]
+    y = alt.Y("valor:Q", title=BY_SLUG[slug].unit, scale=alt.Scale(zero=False))
+    area = base.mark_area(color=alt.Gradient(gradient="linear", x1=1, x2=1, y1=1, y2=0, stops=[
+        alt.GradientStop(color=tema.rgba(tema.cor(0), 0.0), offset=0),
+        alt.GradientStop(color=tema.rgba(tema.cor(0), 0.18), offset=1)])).encode(y=y, y2=alt.datum(s["valor"].min()))
+    line = base.mark_line(color=tema.cor(0), strokeWidth=2).encode(
+        y=y, tooltip=[alt.Tooltip("data:T", format="%d/%m/%Y", title="data"), alt.Tooltip("valor:Q", format=".4f")])
+    layers = [area, line]
     anoms = pd.DataFrame(ind.get(slug, {}).get("anomalias", []))
     if not anoms.empty:
         anoms["data"] = pd.to_datetime(anoms["data"])
         anoms = anoms[anoms["data"] >= s["data"].min()]
-        layers.append(alt.Chart(anoms).mark_point(color="#dc2626", size=90, filled=True).encode(
+        layers.append(alt.Chart(anoms).mark_point(color=tema.cor(1), size=110, filled=True, opacity=1,
+                                                   stroke="white", strokeWidth=1.5).encode(
             x="data:T", y="valor:Q", tooltip=[alt.Tooltip("data:T", format="%d/%m/%Y"),
                                                alt.Tooltip("variacao_pct:Q", title="variação %"), "z:Q"]))
     st.altair_chart(alt.layer(*layers).properties(height=330), use_container_width=True)
     if not anoms.empty:
-        st.caption("🔴 pontos vermelhos: variações diárias atípicas (|z| ≥ 3 em relação aos 90 dias anteriores).")
+        st.caption("🔵 pontos azuis: variações diárias atípicas (|z| ≥ 3 em relação aos 90 dias anteriores).")
 
 with right:
-    st.markdown("#### 🚨 Alertas")
+    st.subheader("Alertas")
     for a in analysis["alertas"]:
-        st.markdown(f"{SEV.get(a['severidade'], '•')} {a['mensagem']}")
+        nivel, rotulo = SEV.get(a["severidade"], ("atencao", a["severidade"]))
+        with st.container(border=True):
+            st.html(tema.selo(nivel, f"Severidade {rotulo.lower()}"))
+            st.markdown(a["mensagem"])
     if not analysis["alertas"]:
         st.success("Nenhum alerta.")
 
