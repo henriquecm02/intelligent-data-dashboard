@@ -1,19 +1,19 @@
 {
   "analise": {
-    "data_referencia": "2026-11-25",
+    "data_referencia": "2026-11-26",
     "indicadores": {
       "dolar": {
         "nome": "Dólar comercial (venda, PTAX)",
         "unidade": "R$",
         "frequencia": "diaria",
-        "ultimo_valor": 5.8573,
-        "ultima_data": "2026-11-24",
+        "ultimo_valor": 5.8825,
+        "ultima_data": "2026-11-25",
         "dias_desde_ultimo_dado": 1,
         "dias_uteis_desde_ultimo_dado": 1,
-        "var_1d_pct": -1.9,
-        "var_7d_pct": 1.25,
-        "var_30d_pct": 16.27,
-        "var_12m_pct": 8.57,
+        "var_1d_pct": 0.43,
+        "var_7d_pct": 1.24,
+        "var_30d_pct": 6.94,
+        "var_12m_pct": 9.26,
         "min_30d": 5.3346,
         "max_30d": 5.9708,
         "anomalias": [
@@ -35,14 +35,14 @@
         "nome": "Euro (venda, PTAX)",
         "unidade": "R$",
         "frequencia": "diaria",
-        "ultimo_valor": 6.426,
-        "ultima_data": "2026-11-24",
+        "ultimo_valor": 6.4413,
+        "ultima_data": "2026-11-25",
         "dias_desde_ultimo_dado": 1,
         "dias_uteis_desde_ultimo_dado": 1,
-        "var_1d_pct": -1.25,
-        "var_7d_pct": 0.94,
-        "var_30d_pct": 13.89,
-        "var_12m_pct": 3.31,
+        "var_1d_pct": 0.24,
+        "var_7d_pct": 1.09,
+        "var_30d_pct": 4.76,
+        "var_12m_pct": 3.46,
         "min_30d": 5.9449,
         "max_30d": 6.5076,
         "anomalias": [
@@ -65,7 +65,7 @@
         "unidade": "% a.a.",
         "frequencia": "diaria",
         "ultimo_valor": 13.75,
-        "ultima_data": "2026-11-25",
+        "ultima_data": "2026-11-26",
         "mudancas_recentes": [
           {
             "data": "2026-06-18",
@@ -144,12 +144,12 @@
     ]
   },
   "saude": {
-    "execucoes": 9,
-    "ultima_execucao": "2026-11-25T04:48:08+00:00",
+    "execucoes": 10,
+    "ultima_execucao": "2026-11-26T03:58:17+00:00",
     "horas_desde_ultima": 0.0,
-    "duracao_mediana_s": 4.17,
+    "duracao_mediana_s": 3.96,
     "duracao_max_s": 6.48,
-    "intervalo_mediano_h": 23.8,
+    "intervalo_mediano_h": 23.6,
     "taxa_sucesso_pct": 100.0,
     "linhas_novas_ultima": 3
   },

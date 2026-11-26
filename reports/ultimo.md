@@ -1,4 +1,4 @@
-# Indicadores econômicos · referência 2026-11-25
+# Indicadores econômicos · referência 2026-11-26
 
 ## Resumo (gerado por IA)
 
@@ -8,14 +8,14 @@ _Não gerado nesta execução (sem GEMINI_API_KEY)._
 
 | Indicador | Último | Data | 1 dia | 7 dias | 30 dias | 12 meses |
 |---|---|---|---|---|---|---|
-| Dólar comercial (venda, PTAX) | R$ 5,8573 | 2026-11-24 | -1,90% | +1,25% | +16,27% | +8,57% |
-| Euro (venda, PTAX) | R$ 6,4260 | 2026-11-24 | -1,25% | +0,94% | +13,89% | +3,31% |
+| Dólar comercial (venda, PTAX) | R$ 5,8825 | 2026-11-25 | +0,43% | +1,24% | +6,94% | +9,26% |
+| Euro (venda, PTAX) | R$ 6,4413 | 2026-11-25 | +0,24% | +1,09% | +4,76% | +3,46% |
 
 ## Juros e inflação
 
 | Indicador | Último | Referência | Acumulado 12 meses | No ano |
 |---|---|---|---|---|
-| Meta Selic (Copom) | 13,75% a.a. | 2026-11-25 | — | — |
+| Meta Selic (Copom) | 13,75% a.a. | 2026-11-26 | — | — |
 | IPCA (variação mensal) | 0,14% | 2026-10 | 4,63% | 4,10% |
 | IGP-M (variação mensal) | 1,47% | 2026-10 | 5,25% | 4,97% |
 
@@ -29,8 +29,8 @@ _Não gerado nesta execução (sem GEMINI_API_KEY)._
 
 ## Saúde da coleta
 
-- Última execução: 2026-11-25T04:48:08+00:00 (0,0 h atrás)
-- Duração mediana: 4,17 s · taxa de sucesso: 100,0% · 9 execuções registradas
-- Intervalo mediano entre coletas: 23,8 h
+- Última execução: 2026-11-26T03:58:17+00:00 (0,0 h atrás)
+- Duração mediana: 3,96 s · taxa de sucesso: 100,0% · 10 execuções registradas
+- Intervalo mediano entre coletas: 23,6 h
 
 _Fonte: Banco Central do Brasil, SGS (api.bcb.gov.br)._
