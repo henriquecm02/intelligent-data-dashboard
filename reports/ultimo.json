@@ -1,20 +1,20 @@
 {
   "analise": {
-    "data_referencia": "2026-11-27",
+    "data_referencia": "2026-11-28",
     "indicadores": {
       "dolar": {
         "nome": "Dólar comercial (venda, PTAX)",
         "unidade": "R$",
         "frequencia": "diaria",
-        "ultimo_valor": 5.7446,
-        "ultima_data": "2026-11-26",
+        "ultimo_valor": 5.543,
+        "ultima_data": "2026-11-27",
         "dias_desde_ultimo_dado": 1,
-        "dias_uteis_desde_ultimo_dado": 1,
-        "var_1d_pct": -2.34,
-        "var_7d_pct": -2.45,
-        "var_30d_pct": 7.69,
-        "var_12m_pct": 6.99,
-        "min_30d": 5.342,
+        "dias_uteis_desde_ultimo_dado": 0,
+        "var_1d_pct": -3.51,
+        "var_7d_pct": -5.87,
+        "var_30d_pct": 3.76,
+        "var_12m_pct": 3.63,
+        "min_30d": 5.3744,
         "max_30d": 5.9708,
         "anomalias": [
           {
@@ -35,15 +35,15 @@
         "nome": "Euro (venda, PTAX)",
         "unidade": "R$",
         "frequencia": "diaria",
-        "ultimo_valor": 6.3041,
-        "ultima_data": "2026-11-26",
+        "ultimo_valor": 6.0646,
+        "ultima_data": "2026-11-27",
         "dias_desde_ultimo_dado": 1,
-        "dias_uteis_desde_ultimo_dado": 1,
-        "var_1d_pct": -2.13,
-        "var_7d_pct": -2.52,
-        "var_30d_pct": 6.04,
-        "var_12m_pct": 1.29,
-        "min_30d": 5.9515,
+        "dias_uteis_desde_ultimo_dado": 0,
+        "var_1d_pct": -3.8,
+        "var_7d_pct": -6.23,
+        "var_30d_pct": 1.9,
+        "var_12m_pct": -2.22,
+        "min_30d": 6.0,
         "max_30d": 6.5076,
         "anomalias": [
           {
@@ -57,6 +57,12 @@
             "variacao_pct": 8.98,
             "z": 13.0,
             "valor": 6.1487
+          },
+          {
+            "data": "2026-11-27",
+            "variacao_pct": -3.8,
+            "z": -3.0,
+            "valor": 6.0646
           }
         ]
       },
@@ -65,7 +71,7 @@
         "unidade": "% a.a.",
         "frequencia": "diaria",
         "ultimo_valor": 13.75,
-        "ultima_data": "2026-11-27",
+        "ultima_data": "2026-11-28",
         "mudancas_recentes": [
           {
             "data": "2026-06-18",
@@ -98,20 +104,20 @@
         "nome": "IGP-M (variação mensal)",
         "unidade": "%",
         "frequencia": "mensal",
-        "ultimo_valor": 1.47,
-        "ultima_data": "2026-10-01",
-        "acumulado_12m_pct": 5.25,
-        "acumulado_ano_pct": 4.97,
-        "media_12m": 0.43
+        "ultimo_valor": 1.24,
+        "ultima_data": "2026-11-01",
+        "acumulado_12m_pct": 6.26,
+        "acumulado_ano_pct": 6.28,
+        "media_12m": 0.51
       }
     },
     "alertas": [
       {
         "indicador": "dolar",
         "tipo": "variacao",
-        "severidade": "media",
-        "mensagem": "Dólar comercial (venda, PTAX) variou -2,45% em 7 dias (limite 2,0%).",
-        "valor": -2.45
+        "severidade": "alta",
+        "mensagem": "Dólar comercial (venda, PTAX) variou -5,87% em 7 dias (limite 2,0%).",
+        "valor": -5.87
       },
       {
         "indicador": "dolar",
@@ -130,9 +136,9 @@
       {
         "indicador": "euro",
         "tipo": "variacao",
-        "severidade": "media",
-        "mensagem": "Euro (venda, PTAX) variou -2,52% em 7 dias (limite 2,0%).",
-        "valor": -2.52
+        "severidade": "alta",
+        "mensagem": "Euro (venda, PTAX) variou -6,23% em 7 dias (limite 2,0%).",
+        "valor": -6.23
       },
       {
         "indicador": "euro",
@@ -149,23 +155,37 @@
         "valor": 8.98
       },
       {
+        "indicador": "euro",
+        "tipo": "anomalia",
+        "severidade": "media",
+        "mensagem": "Euro (venda, PTAX): variação diária atípica de -3,80% em 2026-11-27 (z = -3,0).",
+        "valor": -3.8
+      },
+      {
         "indicador": "ipca",
         "tipo": "limite",
         "severidade": "media",
         "mensagem": "IPCA (variação mensal): acumulado em 12 meses de 4,63% acima de 4,5%.",
         "valor": 4.63
+      },
+      {
+        "indicador": "igpm",
+        "tipo": "limite",
+        "severidade": "media",
+        "mensagem": "IGP-M (variação mensal): acumulado em 12 meses de 6,26% acima de 6,0%.",
+        "valor": 6.26
       }
     ]
   },
   "saude": {
-    "execucoes": 11,
-    "ultima_execucao": "2026-11-27T03:57:05+00:00",
+    "execucoes": 12,
+    "ultima_execucao": "2026-11-28T03:44:44+00:00",
     "horas_desde_ultima": 0.0,
-    "duracao_mediana_s": 4.17,
+    "duracao_mediana_s": 3.96,
     "duracao_max_s": 6.48,
     "intervalo_mediano_h": 23.8,
     "taxa_sucesso_pct": 100.0,
-    "linhas_novas_ultima": 3
+    "linhas_novas_ultima": 4
   },
   "resumo": null
 }
